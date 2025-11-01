@@ -17,7 +17,7 @@ $sol = $pdo->query("SELECT id,nombre,apellidos,email,telefono,estado,creado_en
   <meta charset="utf-8">
   <title>Solicitudes de socios | Panel</title>
   <link rel="stylesheet" href="inicio.css">
-  <link rel="stylesheet" href="paginas.css">
+  <link rel="stylesheet" href="admin_socio.css">
 </head>
 <body>
 <header class="topbar">

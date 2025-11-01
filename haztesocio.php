@@ -22,16 +22,19 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   <meta charset="utf-8">
   <title>Hazte Socio | Atlético Trelle</title>
   <link rel="stylesheet" href="inicio.css"><!-- tu css general si lo tienes -->
-  <link rel="stylesheet" href="paginas.css">
+  <link rel="stylesheet" href="haztesocio.css">
 </head>
 <body>
-<header class="topbar">
-  <a href="index.html">Inicio</a>
-  <a href="jugadores.html">Plantilla</a>
-  <a href="galeria.html">Galería</a>
-  <a href="tienda.html">Tenda</a>
-  <a href="haztesocio.php"><b>Hazte socio</b></a>
-  <a href="login.php" style="float:right">Acceso</a>
+<header>
+  <h1>Atlético Trelle</h1>
+  <nav><ul>
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="jugadores.html">Plantilla</a></li>
+    <li><a href="galeria.html">Galería</a></li>
+    <li><a href="tienda.html">Tenda</a></li>
+    <li><a href="haztesocio.php">Hazte socio</a></li>
+    <li><a href="login.php">Acceso</a></li>
+  </ul></nav>
 </header>
 
 <main class="seccion">

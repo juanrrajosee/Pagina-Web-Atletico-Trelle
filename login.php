@@ -13,7 +13,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
   <meta charset="utf-8">
   <title>Acceso | Atlético Trelle</title>
   <link rel="stylesheet" href="inicio.css">
-  <link rel="stylesheet" href="paginas.css">
+  <link rel="stylesheet" href="login.css">
+
 </head>
 <body>
 <header class="topbar">
