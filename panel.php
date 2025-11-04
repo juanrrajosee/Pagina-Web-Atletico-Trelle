@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <title>Panel | Atlético Trelle</title>
-  <link rel="stylesheet" href="inicio.css">
+  <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="panel.css">
 
 </head>

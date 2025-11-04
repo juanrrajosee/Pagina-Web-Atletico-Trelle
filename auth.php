@@ -1,5 +1,4 @@
 <?php
-// auth.php
 require_once __DIR__ . '/config.php';
 
 function login(string $email, string $password): bool {
@@ -11,10 +10,22 @@ function login(string $email, string $password): bool {
   $u = $st->fetch();
 
   if ($u && password_verify($password, $u['pass_hash'])) {
+    // sesión base
     $_SESSION['uid']     = $u['id'];
     $_SESSION['rol']     = $u['rol'];
     $_SESSION['nombre']  = $u['nombre'];
     $_SESSION['email']   = $u['email'];
+
+    // si estaba como invitado, lo quitamos
+    unset($_SESSION['invitado']);
+
+    // DESCUENTO: si es socio → 15%
+    if ($u['rol'] === 'socio') {
+      $_SESSION['descuento'] = 0.15;
+    } else {
+      unset($_SESSION['descuento']);
+    }
+
     return true;
   }
   return false;
@@ -38,6 +49,6 @@ function require_role(string $rol): void {
 function logout(): void {
   session_unset();
   session_destroy();
-  header('Location: login.php');
+  header('Location: index.php');
   exit;
 }
