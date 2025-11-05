@@ -19,6 +19,17 @@ function login(string $email, string $password): bool {
     // si estaba como invitado, lo quitamos
     unset($_SESSION['invitado']);
 
+    // cargar carrito guardado
+    $stc = $pdo->prepare('SELECT items FROM carritos WHERE user_id = ? LIMIT 1');
+    $stc->execute([$u['id']]);
+    $itemsGuardados = $stc->fetchColumn();
+    if ($itemsGuardados) {
+      $items = json_decode($itemsGuardados, true);
+      $_SESSION['carrito'] = is_array($items) ? $items : [];
+    } else {
+      unset($_SESSION['carrito']);
+    }
+
     // DESCUENTO: si es socio → 15%
     if ($u['rol'] === 'socio') {
       $_SESSION['descuento'] = 0.15;

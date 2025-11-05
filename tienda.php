@@ -2,6 +2,11 @@
 session_start();
 $es_socio = !empty($_SESSION['descuento']); // 15%
 $descuento = $es_socio ? 0.15 : 0;
+$usuarioLogueado = !empty($_SESSION['uid']);
+$carritoGuardado = $_SESSION['carrito'] ?? [];
+if (!is_array($carritoGuardado)) {
+  $carritoGuardado = [];
+}
 function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
 ?>
 <!DOCTYPE html>
@@ -18,7 +23,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
   </style>
 </head>
 <body>
-  <!-- Carrito flotante -->
+  <!-- Botón Carrito -->
   <button class="carrito-btn" id="carritoBtn">
     🛒 Carrito <span class="carrito-contador" id="carritoContador">0</span>
   </button>
@@ -39,18 +44,26 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
     </div>
   </div>
 
-  <!-- header normal -->
+  <!-- Header -->
   <header>
     <h1>Atlético Trelle</h1>
     <nav>
       <ul>
         <li><a href="index.html">Inicio</a></li>
-        <li><a href="historia.html">Historia e Directiva</a></li>
-        <li><a href="jugadores.html">Plantilla</a></li>
-        <li><a href="galeria.html">Blog de fotos</a></li>
-        <li><a class="activo" href="tienda.php">Tenda</a></li>
+        <li><a href="jugadores.html">Jugadores</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="historia.html">Historia y Directiva</a></li>
+        <li><a class="activo" href="tienda.php">Tienda</a></li>
         <li><a href="haztesocio.php">Hazte socio</a></li>
-        <li><a href="login.php">Acceso</a></li>
+
+        <?php if (!empty($_SESSION['uid'])): ?>
+          <?php if (!empty($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
+            <li><a href="panel.php">Panel</a></li>
+          <?php endif; ?>
+          <li><a href="logout.php">Cerrar sesión</a></li>
+        <?php else: ?>
+          <li><a href="login.php">Acceso</a></li>
+        <?php endif; ?>
       </ul>
     </nav>
   </header>
@@ -63,7 +76,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
     </h1>
 
     <section class="productos">
-      <!-- ejemplo producto -->
+      <!-- Producto 1 -->
       <article class="producto"
         data-id="1"
         data-nombre="Equipación Oficial"
@@ -83,7 +96,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
         <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
       </article>
 
-      <!-- repite igual para los demás -->
+      <!-- Producto 2 -->
       <article class="producto"
         data-id="2"
         data-nombre="2ª Equipación Oficial"
@@ -103,8 +116,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
         <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
       </article>
 
-      <!-- ...añade tus demás productos igual que antes, solo cambiando los precios base... -->
-
+      <!-- Añade aquí el resto de productos que ya tenías, copiando el patrón -->
     </section>
   </main>
 
@@ -113,10 +125,28 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
   </footer>
 
   <script>
-    // bandera que viene del servidor
+    // Datos iniciales del servidor
     const DESCUENTO_ACTIVO = <?php echo $es_socio ? 'true' : 'false'; ?>;
+    const USUARIO_LOGUEADO = <?php echo $usuarioLogueado ? 'true' : 'false'; ?>;
+    const CARRITO_GUARDADO = <?php echo json_encode($carritoGuardado, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
+
+    function normalizarItem(item){
+      const precioNum = Number(item?.precio ?? 0);
+      const cantidadNum = Number(item?.cantidad ?? 0);
+      return {
+        id: String(item?.id ?? ''),
+        nombre: String(item?.nombre ?? ''),
+        precio: Number.isFinite(precioNum) ? precioNum : 0,
+        imagen: String(item?.imagen ?? ''),
+        cantidad: Number.isFinite(cantidadNum) ? cantidadNum : 0
+      };
+    }
 
     let carrito = [];
+    if (Array.isArray(CARRITO_GUARDADO)) {
+      carrito = CARRITO_GUARDADO.map(normalizarItem).filter(i => i.id && i.cantidad > 0);
+    }
+
     const carritoBtn = document.getElementById('carritoBtn');
     const carritoPanel = document.getElementById('carritoPanel');
     const carritoOverlay = document.getElementById('carritoOverlay');
@@ -140,7 +170,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
       if (ya){
         ya.cantidad++;
       } else {
-        carrito.push({id, nombre, precio: precioFinal, imagen, cantidad:1});
+        carrito.push({id, nombre, precio: Number(precioFinal), imagen, cantidad:1});
       }
       actualizarCarrito();
       mostrarCarrito();
@@ -157,6 +187,20 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
       document.body.style.overflow='auto';
     }
 
+    // Guardado diferido del carrito (solo usuarios logueados)
+    let guardadoTimeout = null;
+    function programarGuardado(){
+      if (!USUARIO_LOGUEADO) return;
+      if (guardadoTimeout) clearTimeout(guardadoTimeout);
+      guardadoTimeout = setTimeout(() => {
+        fetch('carrito_api.php', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({items: carrito})
+        }).catch(()=>{});
+      }, 400);
+    }
+
     function actualizarCarrito(){
       const totalItems = carrito.reduce((s,i)=>s+i.cantidad,0);
       const total = carrito.reduce((s,i)=>s+i.cantidad*i.precio,0);
@@ -165,6 +209,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
       if (carrito.length === 0){
         carritoContenido.innerHTML = '<div class="carrito-vacio">Tu carrito está vacío</div>';
         carritoTotal.style.display = 'none';
+        programarGuardado();
         return;
       }
 
@@ -190,6 +235,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
         `;
       });
       carritoContenido.innerHTML = html;
+      programarGuardado();
     }
 
     function cambiarCantidad(id,delta){
@@ -218,6 +264,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
     cerrarCarrito.addEventListener('click', ocultarCarrito);
     document.addEventListener('keydown', e=>{ if(e.key==='Escape') ocultarCarrito(); });
 
+    // Iniciar con el carrito (si había guardado)
     actualizarCarrito();
   </script>
 </body>

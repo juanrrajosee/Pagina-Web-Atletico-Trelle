@@ -7,6 +7,7 @@ header h1{font-family:'Montserrat',sans-serif;margin:0 0 8px}
 nav ul{list-style:none;padding:0;margin:0;display:flex;justify-content:center;gap:20px}
 nav a{color:#fff;text-decoration:none;font-weight:700;font-family:'Montserrat',sans-serif}
 nav a:hover{background:rgba(255,255,255,.2);border-radius:4px;padding:6px 10px}
+nav a.activo{background:#fff;color:#aa0d0d;border-radius:4px;padding:6px 10px}
 
 main{padding:20px;flex-grow:1}
 .seccion{background:#fff;max-width:1100px;margin:20px auto;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,.1);padding:20px}

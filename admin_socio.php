@@ -2,36 +2,33 @@
 require __DIR__.'/auth.php';
 require_role('admin');
 
-// aprobar
+// aprobar solicitud
 if (isset($_GET['aprobar'])) {
   $id = (int)$_GET['aprobar'];
   if ($id > 0) {
-    // 1. ponemos la solicitud en aprobado
     $pdo->prepare("UPDATE socios SET estado='aprobado' WHERE id=?")->execute([$id]);
 
-    // 2. buscamos el email de esa solicitud
-    $st = $pdo->prepare("SELECT email, nombre FROM socios WHERE id=?");
+    // vincular a usuarios (si existe)
+    $st = $pdo->prepare("SELECT email FROM socios WHERE id=?");
     $st->execute([$id]);
-    $sol = $st->fetch();
-
-    if ($sol) {
-      $email = $sol['email'];
-
-      // 3. comprobamos si existe un usuario con ese email
+    if ($row = $st->fetch()) {
+      $email = $row['email'];
       $st2 = $pdo->prepare("SELECT id FROM usuarios WHERE email=? LIMIT 1");
       $st2->execute([$email]);
-      $usr = $st2->fetch();
-
-      if ($usr) {
-        // 3.a si existe → actualizar a socio
+      if ($usr = $st2->fetch()) {
         $pdo->prepare("UPDATE usuarios SET rol='socio' WHERE email=?")->execute([$email]);
       }
-      // si NO existe podríamos crearlo aquí con pass aleatoria,
-      // pero por ahora lo dejamos así para no romper tu flujo.
     }
+    header('Location: admin_socio.php?ok=1'); exit;
+  }
+}
 
-    header('Location: admin_socio.php?ok=1');
-    exit;
+// eliminar solicitud
+if (isset($_GET['eliminar'])) {
+  $id = (int)$_GET['eliminar'];
+  if ($id > 0) {
+    $pdo->prepare("DELETE FROM socios WHERE id=?")->execute([$id]);
+    header('Location: admin_socio.php?del=1'); exit;
   }
 }
 
@@ -54,7 +51,10 @@ $sol = $pdo->query("SELECT id,nombre,apellidos,email,telefono,estado,creado_en
 <main class="seccion">
   <h2>Solicitudes</h2>
   <?php if(isset($_GET['ok'])): ?>
-    <p class="alert-ok"><b>Estado actualizado e usuario vinculado (se existía).</b></p>
+    <p class="alert-ok"><b>Solicitude aprobada e usuario vinculado (se existía).</b></p>
+  <?php endif; ?>
+  <?php if(isset($_GET['del'])): ?>
+    <p class="alert-ok"><b>Solicitude eliminada correctamente.</b></p>
   <?php endif; ?>
 
   <?php if(!$sol): ?>
@@ -77,7 +77,14 @@ $sol = $pdo->query("SELECT id,nombre,apellidos,email,telefono,estado,creado_en
           <td>
             <?php if($s['estado']!=='aprobado'): ?>
               <a class="btn" href="admin_socio.php?aprobar=<?=$s['id']?>">Aprobar</a>
-            <?php else: ?>—<?php endif; ?>
+            <?php else: ?>
+              —
+            <?php endif; ?>
+            <a class="btn" style="background:#444;margin-left:6px"
+               href="admin_socio.php?eliminar=<?=$s['id']?>"
+               onclick="return confirm('¿Seguro que quieres eliminar esta solicitude?');">
+               Eliminar
+            </a>
           </td>
         </tr>
       <?php endforeach; ?>
