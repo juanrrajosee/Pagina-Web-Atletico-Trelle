@@ -1,8 +1,7 @@
 <?php
-require __DIR__.'/config.php';
+require __DIR__ . '/config.php';
 $ok = false;
 $err = '';
-$usuarioLogueado = !empty($_SESSION['uid']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nombre    = trim($_POST['nombre'] ?? '');
@@ -23,35 +22,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+$activePage = 'haztesocio';
 ?>
 <!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8">
   <title>Hazte Socio | Atlético Trelle</title>
-  <link rel="stylesheet" href="inicio.css"><!-- tu css general si lo tienes -->
+  <link rel="stylesheet" href="inicio.css">
   <link rel="stylesheet" href="haztesocio.css">
 </head>
 <body>
-<header>
-  <h1>Atlético Trelle</h1>
-  <nav>
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="jugadores.html">Jugadores</a></li>
-      <li><a href="galeria.html">Galería</a></li>
-      <li><a href="historia.html">Historia y Directiva</a></li>
-      <li><a href="tienda.php">Tienda</a></li>
-      <li><a class="activo" href="haztesocio.php">Hazte socio</a></li>
-      <?php if ($usuarioLogueado): ?>
-        <li><a href="panel.php">Panel</a></li>
-        <li><a href="logout.php">Cerrar sesión</a></li>
-      <?php else: ?>
-        <li><a href="login.php">Acceso</a></li>
-      <?php endif; ?>
-    </ul>
-  </nav>
-</header>
+
+<?php include __DIR__ . '/includes/header.php'; ?>
 
 <main class="seccion">
   <h2>Hazte Socio</h2>
@@ -85,5 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <footer>
   <p>&copy; 2025 Atlético Trelle. Todos los derechos reservados.</p>
 </footer>
+
 </body>
 </html>

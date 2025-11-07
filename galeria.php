@@ -1,27 +1,21 @@
+<?php 
+session_start();
+$activePage = 'galeria'; 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Galería - Atlético Trelle</title>
+    <link rel="stylesheet" href="inicio.css">
     <link rel="stylesheet" href="galeria.css">
 </head>
 <body>
-    <header>
-        <h1>Atlético Trelle - Galería</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="jugadores.html">Jugadores</a></li>
-                <li><a href="galeria.html">Galería</a></li>
-                <li><a href="historia.html">Historia y Directiva</a></li>
-                <li><a href="haztesocio.php">Hazte Socio</a></li>
-                <li><a href="tienda.php">Tienda</a></li>
-            </ul>
-        </nav>
-    </header>
-    
+    <?php include __DIR__ . '/includes/header.php'; ?>
+
     <main>
+        <h2 class="page-title">Atlético Trelle - Galería</h2>
         <section class="galeria">
             <!-- Lista completa de imágenes con enlaces a lightbox -->
             <div class="imagen"><a href="#img1"><img src="./GaleriaImagenes/IMG1.JPG" alt="Foto 1"></a></div>
@@ -52,5 +46,9 @@
         <div class="lightbox" id="img11"><a href="#" class="close">&times;</a><img src="./GaleriaImagenes/IMG11.JPG" alt="Foto 11"></div>
         <div class="lightbox" id="img12"><a href="#" class="close">&times;</a><img src="./GaleriaImagenes/IMG12.JPG" alt="Foto 12"></div>
     </main>
+
+    <footer>
+        <p>&copy; 2025 Atlético Trelle. Todos los derechos reservados.</p>
+    </footer>
 </body>
 </html>

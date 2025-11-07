@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     $loginEmailValue = $email;
     if (login($email, $password)) {
-      header('Location: panel.php');
+      header('Location: inicio.php');
       exit;
     }
     $loginError = 'Credenciales incorrectas.';
@@ -69,8 +69,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               password_hash($password, PASSWORD_DEFAULT)
             ]);
 
-        // NO auto-login: alert + redirección a index.php
-        echo "<script>alert('Usuario registrado correctamente. Ahora inicia sesión para acceder a tus ventajas.'); window.location.href='index.php';</script>";
+        // NO auto-login: alert + redirección a la pestaña de login
+        echo "<script>alert('Usuario registrado correctamente. Ahora inicia sesión para acceder a tus ventajas.'); window.location.href='login.php?tab=login';</script>";
         exit;
 
       } catch (PDOException $e) {
@@ -86,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+$activePage = 'login';
 ?>
 <!doctype html>
 <html lang="es">
@@ -96,20 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="login.css">
 </head>
 <body>
-<header>
-  <h1>Atlético Trelle</h1>
-  <nav>
-    <ul>
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="jugadores.html">Jugadores</a></li>
-      <li><a href="galeria.html">Galería</a></li>
-      <li><a href="historia.html">Historia y Directiva</a></li>
-      <li><a href="tienda.php">Tienda</a></li>
-      <li><a href="haztesocio.php">Hazte socio</a></li>
-      <li><a class="activo" href="login.php">Acceso</a></li>
-    </ul>
-  </nav>
-</header>
+<?php include __DIR__.'/includes/header.php'; ?>
 
 <main class="auth-grid">
   <section class="seccion" id="login">
@@ -146,5 +134,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
   </section>
 </main>
+
+<script>
+// Si vienes con ?tab=register, desplaza el foco visual ahí (simplemente baja hasta esa sección)
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('tab') === 'register') {
+    const el = document.getElementById('register');
+    if (el) el.scrollIntoView({behavior: 'smooth'});
+  }
+})();
+</script>
+
 </body>
 </html>

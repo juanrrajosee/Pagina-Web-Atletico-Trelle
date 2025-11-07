@@ -8,6 +8,7 @@ if (!is_array($carritoGuardado)) {
   $carritoGuardado = [];
 }
 function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
+$activePage = 'tienda';
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,6 +16,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tienda - Atlético Trelle</title>
+  <link rel="stylesheet" href="inicio.css">
   <link rel="stylesheet" href="tienda.css">
   <style>
     .precio-tachado{ text-decoration: line-through; color:#999; margin-right:6px; }
@@ -44,29 +46,8 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
     </div>
   </div>
 
-  <!-- Header -->
-  <header>
-    <h1>Atlético Trelle</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Inicio</a></li>
-        <li><a href="jugadores.html">Jugadores</a></li>
-        <li><a href="galeria.html">Galería</a></li>
-        <li><a href="historia.html">Historia y Directiva</a></li>
-        <li><a class="activo" href="tienda.php">Tienda</a></li>
-        <li><a href="haztesocio.php">Hazte socio</a></li>
-
-        <?php if (!empty($_SESSION['uid'])): ?>
-          <?php if (!empty($_SESSION['rol']) && $_SESSION['rol'] === 'admin'): ?>
-            <li><a href="panel.php">Panel</a></li>
-          <?php endif; ?>
-          <li><a href="logout.php">Cerrar sesión</a></li>
-        <?php else: ?>
-          <li><a href="login.php">Acceso</a></li>
-        <?php endif; ?>
-      </ul>
-    </nav>
-  </header>
+  <!-- Header unificado -->
+  <?php include __DIR__.'/includes/header.php'; ?>
 
   <main>
     <h1>Tenda oficial do Atlético Trelle
@@ -116,7 +97,105 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
         <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
       </article>
 
-      <!-- Añade aquí el resto de productos que ya tenías, copiando el patrón -->
+      <!-- Producto 3 -->
+      <article class="producto"
+        data-id="3"
+        data-nombre="Sudadera Atlético Trelle"
+        data-precio="30"
+        data-precio-desc="<?php echo $es_socio ? precio_desc(30, $descuento) : 30; ?>"
+        data-imagen="ImagenesTienda/sudadera.png">
+        <img src="ImagenesTienda/sudadera.png" alt="Sudadera Atlético Trelle" />
+        <h3>Sudadera Atlético Trelle</h3>
+        <p>
+          <?php if($es_socio): ?>
+            <span class="precio-tachado">30€</span>
+            <span class="precio-socio"><?php echo precio_desc(30, $descuento); ?>€</span>
+          <?php else: ?>
+            Precio: 30€
+          <?php endif; ?>
+        </p>
+        <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
+      </article>
+
+      <!-- Producto 4 -->
+      <article class="producto"
+        data-id="4"
+        data-nombre="Bufanda Oficial"
+        data-precio="10"
+        data-precio-desc="<?php echo $es_socio ? precio_desc(10, $descuento) : 10; ?>"
+        data-imagen="ImagenesTienda/bufandas.png">
+        <img src="ImagenesTienda/bufandas.png" alt="Bufanda Oficial" />
+        <h3>Bufanda Oficial</h3>
+        <p>
+          <?php if($es_socio): ?>
+            <span class="precio-tachado">10€</span>
+            <span class="precio-socio"><?php echo precio_desc(10, $descuento); ?>€</span>
+          <?php else: ?>
+            Precio: 10€
+          <?php endif; ?>
+        </p>
+        <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
+      </article>
+
+      <!-- Producto 5 -->
+      <article class="producto"
+        data-id="5"
+        data-nombre="Balón Firmado"
+        data-precio="50"
+        data-precio-desc="<?php echo $es_socio ? precio_desc(50, $descuento) : 50; ?>"
+        data-imagen="ImagenesTienda/balon.jpg">
+        <img src="ImagenesTienda/balon.jpg" alt="Balón Firmado" />
+        <h3>Balón Firmado</h3>
+        <p>
+          <?php if($es_socio): ?>
+            <span class="precio-tachado">50€</span>
+            <span class="precio-socio"><?php echo precio_desc(50, $descuento); ?>€</span>
+          <?php else: ?>
+            Precio: 50€
+          <?php endif; ?>
+        </p>
+        <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
+      </article>
+
+      <!-- Producto 6 -->
+      <article class="producto"
+        data-id="6"
+        data-nombre="Postal del equipo"
+        data-precio="5"
+        data-precio-desc="<?php echo $es_socio ? precio_desc(5, $descuento) : 5; ?>"
+        data-imagen="ImagenesTienda/postal.jpg">
+        <img src="ImagenesTienda/postal.jpg" alt="Postal del equipo" />
+        <h3>Postal del equipo</h3>
+        <p>
+          <?php if($es_socio): ?>
+            <span class="precio-tachado">5€</span>
+            <span class="precio-socio"><?php echo precio_desc(5, $descuento); ?>€</span>
+          <?php else: ?>
+            Precio: 5€
+          <?php endif; ?>
+        </p>
+        <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
+      </article>
+
+      <!-- Producto 7 -->
+      <article class="producto"
+        data-id="7"
+        data-nombre="Cromos oficiales"
+        data-precio="3"
+        data-precio-desc="<?php echo $es_socio ? precio_desc(3, $descuento) : 3; ?>"
+        data-imagen="ImagenesTienda/cromos.jpg">
+        <img src="ImagenesTienda/cromos.jpg" alt="Cromos oficiales" />
+        <h3>Cromos oficiales</h3>
+        <p>
+          <?php if($es_socio): ?>
+            <span class="precio-tachado">3€</span>
+            <span class="precio-socio"><?php echo precio_desc(3, $descuento); ?>€</span>
+          <?php else: ?>
+            Precio: 3€
+          <?php endif; ?>
+        </p>
+        <button onclick="agregarAlCarrito(this)">Añadir al carrito</button>
+      </article>
     </section>
   </main>
 
@@ -125,7 +204,7 @@ function precio_desc($p, $d){ return number_format($p*(1-$d), 2, ',', ''); }
   </footer>
 
   <script>
-    // Datos iniciales del servidor
+    // Datos iniciales provenientes del servidor
     const DESCUENTO_ACTIVO = <?php echo $es_socio ? 'true' : 'false'; ?>;
     const USUARIO_LOGUEADO = <?php echo $usuarioLogueado ? 'true' : 'false'; ?>;
     const CARRITO_GUARDADO = <?php echo json_encode($carritoGuardado, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;

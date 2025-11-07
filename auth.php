@@ -58,7 +58,30 @@ function require_role(string $rol): void {
 }
 
 function logout(): void {
-  session_unset();
+  global $pdo;
+  if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+  }
+
+  // Guardar carrito antes de cerrar sesión
+  if (!empty($_SESSION['uid']) && isset($_SESSION['carrito']) && is_array($_SESSION['carrito'])) {
+    $json = json_encode($_SESSION['carrito'], JSON_UNESCAPED_UNICODE);
+    try {
+      $pdo->prepare('INSERT INTO carritos (user_id, items) VALUES (?, ?)
+                      ON DUPLICATE KEY UPDATE items = VALUES(items), actualizado_en = CURRENT_TIMESTAMP')
+          ->execute([$_SESSION['uid'], $json]);
+    } catch (Throwable $e) {
+      // Si no se puede guardar el carrito, se continúa igualmente.
+    }
+  }
+
+  // Limpiar sesión y cookies
+  $_SESSION = [];
+  if (ini_get('session.use_cookies')) {
+    $params = session_get_cookie_params();
+    setcookie(session_name(), '', time() - 42000, $params['path'], $params['domain'], $params['secure'], $params['httponly']);
+  }
+
   session_destroy();
   header('Location: index.php');
   exit;
