@@ -48,17 +48,19 @@ if (isset($_SESSION['invitado'])) {
       font-size: 1.05em;
     }
     .btn {
-      display: block;
-      margin: 10px 0;
-      padding: 12px 18px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 1em;
-      cursor: pointer;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+  display: inline-block; /* 🔥 antes era block */
+  margin: 10px 0;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1em;
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.3s;
+  vertical-align: middle; /* opcional: mejora la alineación con el texto */
+}
+
     .btn-primary {
       background: #aa0d0d;
       color: #fff;
@@ -74,24 +76,44 @@ if (isset($_SESSION['invitado'])) {
     .btn-secondary:hover {
       background: #e9e9e9;
     }
+    .guest-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* espacio entre botón y texto */
+  flex-wrap: wrap; /* para que en pantallas pequeñas baje automáticamente */
+  margin-top: 10px;
+}
+
+.warning-text {
+  color: #aa0d0d;
+  font-size: 0.9em;
+  max-width: 180px;
+  text-align: left;
+}
+
   </style>
 </head>
 <body>
   <div class="card">
     <h1>Atlético Trelle</h1>
     <p>Bienvenido a la web oficial del Atlético Trelle.</p>
-    <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
-    <form method="post" action="inicio.php" style="margin-top:10px;">
-      <?php
-      // Al entrar como invitado, marcamos la sesión
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $_SESSION['invitado'] = true;
-        header('Location: inicio.php');
-        exit;
-      }
-      ?>
-      <button type="submit" class="btn btn-secondary">Entrar como Invitado</button>
-    </form>
+    <a href="login.php" class="btn btn-primary">Iniciar Sesión/Registrarse</a>
+    <form method="post" action="inicio.php" class="guest-form">
+  <?php
+  // Al entrar como invitado, marcamos la sesión
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['invitado'] = true;
+    header('Location: inicio.php');
+    exit;
+  }
+  ?>
+  <div class="guest-row">
+    <button type="submit" class="btn btn-secondary">Entrar como Invitado</button>
+    <p class="warning-text">⚠️ Al entrar como invitado, algunas funciones pueden estar limitadas.</p>
+  </div>
+</form>
+
   </div>
 </body>
 </html>

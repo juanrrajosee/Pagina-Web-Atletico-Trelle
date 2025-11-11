@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 }
+
 $activePage = 'haztesocio';
 ?>
 <!doctype html>
@@ -45,24 +46,33 @@ $activePage = 'haztesocio';
     <p class="alert-err"><b><?= htmlspecialchars($err) ?></b></p>
   <?php endif; ?>
 
-  <form class="form" method="post" action="haztesocio.php" novalidate>
-    <label>Nome*</label>
-    <input name="nombre" required value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>">
+  <div class="socio-layout">
+    <div class="socio-form">
+      <form class="form" method="post" action="haztesocio.php" novalidate>
+        <label>Nome*</label>
+        <input name="nombre" required value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>">
 
-    <label>Apelidos</label>
-    <input name="apellidos" value="<?= htmlspecialchars($_POST['apellidos'] ?? '') ?>">
+        <label>Apelidos</label>
+        <input name="apellidos" value="<?= htmlspecialchars($_POST['apellidos'] ?? '') ?>">
 
-    <label>Email*</label>
-    <input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+        <label>Email*</label>
+        <input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
 
-    <label>Teléfono</label>
-    <input name="telefono" value="<?= htmlspecialchars($_POST['telefono'] ?? '') ?>">
+        <label>Teléfono</label>
+        <input name="telefono" value="<?= htmlspecialchars($_POST['telefono'] ?? '') ?>">
 
-    <label>Comentarios</label>
-    <textarea name="comentarios"><?= htmlspecialchars($_POST['comentarios'] ?? '') ?></textarea>
+        <label>Comentarios</label>
+        <textarea name="comentarios"><?= htmlspecialchars($_POST['comentarios'] ?? '') ?></textarea>
 
-    <button class="btn">Enviar Solicitud</button>
-  </form>
+        <button class="btn">Enviar Solicitud</button>
+      </form>
+    </div>
+
+    <aside class="socio-visual" aria-label="Imagen promocional de la campaña de socios">
+      <img src="ImagenesInicio/imagen_portada.JPG" alt="Afición del Atlético Trelle animando" loading="lazy">
+      <p>¡Personaliza este espacio con la imagen de tu campaña en Canva!</p>
+    </aside>
+  </div>
 </main>
 
 <footer>

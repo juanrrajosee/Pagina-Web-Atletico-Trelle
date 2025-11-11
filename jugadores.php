@@ -1,4 +1,10 @@
-<?php $activePage = 'jugadores'; ?>
+<?php
+$activePage = 'jugadores';
+require __DIR__.'/config.php';
+
+$playersStmt = $pdo->query('SELECT nombre, apodo, slug, posicion, dorsal, descripcion_corta, imagen_principal FROM jugadores ORDER BY nombre');
+$players = $playersStmt->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,36 +21,40 @@
         <h2 class="page-title">Atlético Trelle - Jugadores</h2>
 
         <section class="jugadores">
-            <div class="jugador">
-                <img src="./ImagenesJugadores/xoelygubi.jpg" alt="Entrenadores">
-                <h3>Iker Gabeiras y Xoel Cid</h3>
-                <p>Entrenadores</p>
-                <a href="#">Ver perfil</a>
-            </div>
+            <?php foreach ($players as $player): ?>
+                <?php
+                    $image = $player['imagen_principal'] ?: 'ImagenesJugadores/placeholder.svg';
+                    $name = htmlspecialchars($player['nombre']);
+                    $position = $player['posicion'] ? htmlspecialchars($player['posicion']) : 'Jugador del Atlético Trelle';
+                    $dorsal = $player['dorsal'] ? 'Dorsal ' . htmlspecialchars($player['dorsal']) : null;
+                    $description = $player['descripcion_corta'] ? htmlspecialchars($player['descripcion_corta']) : null;
+                ?>
+                <article class="jugador">
+                    <div class="jugador-imagen">
+                        <img src="<?= htmlspecialchars($image) ?>" alt="<?= $name ?>">
+                    </div>
+                    <div class="jugador-texto">
+                        <h3>
+                            <?= $name ?>
+                            <?php if (!empty($player['apodo'])): ?>
+                                <span class="jugador-apodo">“<?= htmlspecialchars($player['apodo']) ?>”</span>
+                            <?php endif; ?>
+                        </h3>
+                        <p class="jugador-posicion">Posición: <?= $position ?></p>
+                        <?php if ($dorsal): ?>
+                            <p class="jugador-dorsal"><?= $dorsal ?></p>
+                        <?php endif; ?>
+                        <?php if ($description): ?>
+                            <p class="jugador-desc"><?= $description ?></p>
+                        <?php endif; ?>
+                        <a class="btn-perfil" href="jugador.php?slug=<?= urlencode($player['slug']) ?>">Ver perfil</a>
+                    </div>
+                </article>
+            <?php endforeach; ?>
 
-            <div class="jugador">
-                <img src="./ImagenesJugadores/adrian.png" alt="adrian">
-                <h3>Adiran Rodriguez</h3>
-                <p>Posición: Lateral Izquierdo</p>
-                <a href="#">Ver perfil</a>
-            </div>
-
-            <div class="jugador">
-                <img src="./ImagenesJugadores/altamira.png" alt="altamira">
-                <h3>Adrian Altamira</h3>
-                <p>Posición: Central/Lateral Derecho</p>
-                <a href="#">Ver perfil</a>
-            </div>
-
-            <div class="jugador">
-                <img src="./ImagenesJugadores/anxo.png" alt="anxo">
-                <h3>Anxo</h3>
-                <p>Posición: Mediocentro</p>
-                <a href="#">Ver perfil</a>
-            </div>
-
-            <!-- 🔽 Mantén aquí el resto de tarjetas de jugadores exactamente como las tenías en jugadores.html -->
-            <!-- ... -->
+            <?php if (!$players): ?>
+                <p class="jugadores-vacio">Aún no hay jugadores registrados. ¡Pronto añadiremos a todo el plantel!</p>
+            <?php endif; ?>
         </section>
     </main>
 

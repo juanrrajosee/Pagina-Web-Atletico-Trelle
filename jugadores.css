@@ -8,7 +8,7 @@ body {
     background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la pantalla */
+    min-height: 100vh;
 }
 
 header {
@@ -19,6 +19,7 @@ header {
 }
 
 header h1 {
+    margin: 10px 0 25px 0;
     font-family: 'Montserrat', sans-serif;
     font-size: 2.5em;
     font-weight: bold;
@@ -46,7 +47,7 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.7em; /* Tamaño del menú unificado */
+    font-size: 1.7em;
     padding: 12px 20px;
     font-family: 'Montserrat', sans-serif;
 }
@@ -59,7 +60,7 @@ nav ul li a:hover {
 main {
     padding: 20px;
     text-align: center;
-    flex-grow: 1; /* Permite que el contenido ocupe el espacio disponible */
+    flex-grow: 1;
 }
 
 .jugadores {
@@ -71,41 +72,95 @@ main {
 
 .jugador {
     background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    padding: 24px 22px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    width: min(320px, 92vw);
     text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
-/* 🔥 Efecto de zoom al pasar el mouse */
 .jugador:hover {
-    transform: scale(1.05); /* Aumenta un 5% el tamaño */
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3); /* Sombra más marcada */
+    transform: translateY(-8px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
 }
 
-.jugador img {
-    width: 200px;
-    height: 200px;
+.jugador-imagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 30% 30%, rgba(170, 13, 13, 0.18), transparent 70%);
+    border-radius: 14px;
+    padding: 16px;
+    min-height: 210px;
+}
+
+.jugador-imagen img {
+    width: 190px;
+    height: 190px;
     object-fit: contain;
-    border-radius: 5px;
 }
 
-.jugador h3 {
+.jugador-texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.jugador-texto h3 {
     color: #aa0d0d;
     font-family: 'Montserrat', sans-serif;
+    font-size: 1.35em;
+    margin: 0 0 8px 0;
 }
 
-.jugador p {
+.jugador-apodo {
+    display: block;
+    font-size: 0.85em;
+    font-weight: 400;
+    color: #444;
+    margin-top: 6px;
+}
+
+.jugador-posicion,
+.jugador-dorsal,
+.jugador-desc {
     color: #333;
+    font-size: 0.98em;
+    margin: 6px 0;
 }
 
-.jugador a {
-    color: #aa0d0d;
-    text-decoration: none;
-    font-weight: bold;
+.jugador-desc {
+    min-height: 54px;
+}
+
+.btn-perfil {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 10px 18px;
+    background: #aa0d0d;
+    color: #fff !important;
+    border-radius: 999px;
     font-family: 'Montserrat', sans-serif;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.btn-perfil:hover {
+    background: #8b0a0a;
+    transform: translateY(-2px);
+}
+
+.jugadores-vacio {
+    font-size: 1.1em;
+    color: #444;
+    max-width: 600px;
+    margin: 60px auto;
+    line-height: 1.6;
 }
 
 footer {
@@ -113,10 +168,10 @@ footer {
     color: white;
     text-align: center;
     padding: 10px;
-    margin-top: auto; /* Empuja el footer hacia el final */
+    margin-top: auto;
 }
 
-/* 📱 Media Queries para hacer la página responsive */
+/* 📱 Responsividad */
 @media (max-width: 1025px) {
     header {
         flex-direction: row;
@@ -140,7 +195,7 @@ footer {
     }
 
     .jugador {
-        width: 90%;
+        width: min(440px, 100%);
     }
 }
 
@@ -165,26 +220,5 @@ footer {
 
     nav ul {
         gap: 15px;
-    }
-
-    .jugador {
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    header {
-        min-height: 180px;
-        padding-bottom: 20px;
-    }
-
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    header h1 {
-        font-size: 1.5em;
-        margin-top: 50px;
     }
 }

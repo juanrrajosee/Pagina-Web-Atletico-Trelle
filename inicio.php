@@ -18,64 +18,75 @@
             <div class="slide"><img src="GaleriaImagenes/IMG3.JPG" alt="Jugadores celebrando un gol"></div>
             <div class="slide"><img src="GaleriaImagenes/IMG7.JPG" alt="Afición animando al Atlético Trelle"></div>
         </div>
-        <button class="slider-control prev" type="button" aria-label="Imagen anterior">&#10094;</button>
-        <button class="slider-control next" type="button" aria-label="Imagen siguiente">&#10095;</button>
     </section>
 
-    <main>
-        <!-- NOTICIAS EXISTENTES -->
-        <section class="noticia">
-            <img src="./ImagenesInicio/foto_en_la_iglesia.jpg" alt="Atlético Trelle resucita">
-            <h3>Cinco jóvenes resucitan el Atlético Trelle por amor al fútbol</h3>
-            <p>Un grupo de jóvenes ha devuelto a la vida al Atlético Trelle, un histórico equipo ourensano, con el objetivo de competir nuevamente y mantener viva la pasión por el fútbol en la comunidad.</p>
-            <a href="https://www.lavozdegalicia.es/noticia/ourense/toen/2023/07/31/cinco-jovenes-resucitan-atletico-trelle-amor-futbol/0003_202307O31C5991.htm" target="_blank" rel="noopener">Leer más en La Voz de Galicia</a>
-        </section>
-        
-        <section class="noticia">
-            <h2>Próximo partido: CD Barco "B" vs Atlético Trelle</h2>
-            <img src="./ImagenesInicio/trellevsbarco.jpg" alt="Cartel del partido">
-            <p>El Atlético Trelle se enfrentará al CD Barco "B" el sábado 5 de octubre de 2024 a las 17:00 en el Campo Municipal do Campiño (Viloria).</p>
+    <main class="inicio-layout">
+        <section class="news-column" aria-labelledby="titulo-noticias">
+            <h2 id="titulo-noticias" class="column-title">Últimas noticias</h2>
+
+            <article class="noticia">
+                <img src="./ImagenesInicio/foto_en_la_iglesia.jpg" alt="Atlético Trelle resucita">
+                <h3>Cinco jóvenes resucitan el Atlético Trelle por amor al fútbol</h3>
+                <p>Un grupo de jóvenes ha devuelto a la vida al Atlético Trelle, un histórico equipo ourensano, con el objetivo de competir nuevamente y mantener viva la pasión por el fútbol en la comunidad.</p>
+                <a href="https://www.lavozdegalicia.es/noticia/ourense/toen/2023/07/31/cinco-jovenes-resucitan-atletico-trelle-amor-futbol/0003_202307O31C5991.htm" target="_blank" rel="noopener">
+                    Leer más en La Voz de Galicia
+                </a>
+            </article>
+
+            <article class="noticia">
+                <h3>Próximo partido: CD Barco "B" vs Atlético Trelle</h3>
+                <img src="./ImagenesInicio/trellevsbarco.jpg" alt="Cartel del partido">
+                <p>El Atlético Trelle se enfrentará al CD Barco "B" el sábado 5 de octubre de 2024 a las 17:00 en el Campo Municipal do Campiño (Viloria).</p>
+            </article>
         </section>
 
-        <!-- NUEVAS NOTICIAS (EMBEDS DE INSTAGRAM) -->
-        <!--
-        <section class="noticia">
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DPetKyqiKFZ/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-              ...
-            </blockquote>
-            <script async src="//www.instagram.com/embed.js"></script> 
-        </section>
+        <aside class="instagram-column" aria-labelledby="titulo-instagram">
+            <h2 id="titulo-instagram" class="column-title">Últimos posts en Instagram</h2>
+            <div class="instagram-feed">
+                <blockquote class="instagram-media"
+                    data-instgrm-captioned
+                    data-instgrm-permalink="https://www.instagram.com/p/DPetKyqiKFZ/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="14"
+                    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
+                    ...
+                </blockquote>
 
-        <section class="noticia">
-            <h3>📸 Otra novedad en Instagram</h3>
-            <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/DPPMqS4CP-6/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);">
-              ...
-            </blockquote>
-            <script async src="//www.instagram.com/embed.js"></script>
-        </section>
-        -->
+                <blockquote class="instagram-media"
+                    data-instgrm-captioned
+                    data-instgrm-permalink="https://www.instagram.com/p/DPPMqS4CP-6/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="14"
+                    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
+                    ...
+                </blockquote>
+
+                <blockquote class="instagram-media"
+                    data-instgrm-captioned
+                    data-instgrm-permalink="https://www.instagram.com/p/DO5P0nSCnA6/?utm_source=ig_embed&amp;utm_campaign=loading"
+                    data-instgrm-version="14"
+                    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
+                    ...
+                </blockquote>
+            </div>
+        </aside>
     </main>
     
     <footer>
         <p>&copy; 2025 Atlético Trelle - Todos los derechos reservados</p>
     </footer>
 
-    <!-- Script de Instagram (necesario para que se rendericen los embeds) -->
     <script async src="https://www.instagram.com/embed.js"></script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {
       const slider = document.querySelector('.hero-slider');
       if (!slider) return;
+
       const track = slider.querySelector('.slider-track');
       const slides = Array.from(track.children);
       if (slides.length <= 1) {
-        slider.querySelectorAll('.slider-control').forEach(btn => btn.style.display = 'none');
         return;
       }
 
-      const prevBtn = slider.querySelector('.slider-control.prev');
-      const nextBtn = slider.querySelector('.slider-control.next');
       const totalSlides = slides.length;
 
       const firstClone = slides[0].cloneNode(true);
@@ -86,7 +97,7 @@
       let index = 1;
       let isSliding = false;
       let autoTimer = null;
-      const interval = 3000;
+      const interval = 3500;
 
       function setPosition(instant = false) {
         track.style.transition = instant ? 'none' : 'transform 0.7s ease';
@@ -131,22 +142,6 @@
 
       slider.addEventListener('mouseenter', stopAuto);
       slider.addEventListener('mouseleave', startAuto);
-
-      if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-          stopAuto();
-          moveTo(index + 1);
-          startAuto();
-        });
-      }
-
-      if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-          stopAuto();
-          moveTo(index - 1);
-          startAuto();
-        });
-      }
     });
     </script>
 </body>

@@ -1,0 +1,6 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="64" fill="#f4f4f4"/>
+  <path d="M256 280c53.019 0 96-42.981 96-96s-42.981-96-96-96-96 42.981-96 96 42.981 96 96 96z" fill="#aa0d0d" fill-opacity="0.72"/>
+  <path d="M96 416c0-88.366 71.634-160 160-160s160 71.634 160 160" stroke="#aa0d0d" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="50%" y="82%" text-anchor="middle" font-family="Montserrat, Arial, sans-serif" font-size="56" fill="#aa0d0d" fill-opacity="0.75">ATLÉTICO</text>
+</svg>
