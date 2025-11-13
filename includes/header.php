@@ -30,9 +30,7 @@ $bubbleClass = $usuarioLogueado ? 'session-bubble logout' : 'session-bubble logi
                 <li><a class="<?= $activePage === 'tienda' ? 'activo' : '' ?>" href="tienda.php">Tienda</a></li>
             <?php endif; ?>
 
-            <?php if (!$usuarioLogueado): ?>
-                <li><a class="<?= $activePage === 'login' ? 'activo' : '' ?>" href="login.php">Acceso</a></li>
-            <?php endif; ?>
+            
         </ul>
     </nav>
 </header>
