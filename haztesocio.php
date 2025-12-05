@@ -2,6 +2,7 @@
 require __DIR__ . '/config.php';
 $ok = false;
 $err = '';
+$usuarioLogueado = !empty($_SESSION['uid']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $nombre    = trim($_POST['nombre'] ?? '');
@@ -10,8 +11,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $telefono  = trim($_POST['telefono'] ?? '');
   $coment    = trim($_POST['comentarios'] ?? '');
 
-  if ($nombre === '' || $email === '') {
+  if (!$usuarioLogueado) {
+    $err = 'Debes iniciar sesión para enviar la solicitud de socio.';
+  } elseif ($nombre === '' || $email === '') {
     $err = 'Nome e email son obrigatorios.';
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL) || !preg_match('/@gmail\.com$/', $email)) {
+    $err = 'O correo debe ser válido e rematar en @gmail.com.';
   } else {
     try {
       $st = $pdo->prepare("INSERT INTO socios(nombre, apellidos, email, telefono, comentarios) VALUES (?,?,?,?,?)");
@@ -56,7 +61,7 @@ $activePage = 'haztesocio';
         <input name="apellidos" value="<?= htmlspecialchars($_POST['apellidos'] ?? '') ?>">
 
         <label>Email*</label>
-        <input type="email" name="email" required value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
+        <input type="email" name="email" required pattern="^[A-Za-z0-9._%+-]+@gmail\.com$" title="O correo debe rematar en @gmail.com" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>">
 
         <label>Teléfono</label>
         <input name="telefono" value="<?= htmlspecialchars($_POST['telefono'] ?? '') ?>">
@@ -77,6 +82,19 @@ $activePage = 'haztesocio';
 <footer>
   <p>&copy; 2025 Atlético Trelle. Todos los derechos reservados.</p>
 </footer>
+
+<script>
+(function() {
+  const puedeSolicitar = <?= $usuarioLogueado ? 'true' : 'false' ?>;
+  const form = document.querySelector('.socio-form form');
+  if (!puedeSolicitar && form) {
+    form.addEventListener('submit', function(ev) {
+      ev.preventDefault();
+      alert('No puedes hacerte socio sin iniciar sesión previamente.');
+    });
+  }
+})();
+</script>
 
 </body>
 </html>

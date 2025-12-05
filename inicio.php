@@ -43,29 +43,8 @@
         <aside class="instagram-column" aria-labelledby="titulo-instagram">
             <h2 id="titulo-instagram" class="column-title">Últimos posts en Instagram</h2>
             <div class="instagram-feed">
-                <blockquote class="instagram-media"
-                    data-instgrm-captioned
-                    data-instgrm-permalink="https://www.instagram.com/p/DPetKyqiKFZ/?utm_source=ig_embed&amp;utm_campaign=loading"
-                    data-instgrm-version="14"
-                    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
-                    ...
-                </blockquote>
-
-                <blockquote class="instagram-media"
-                    data-instgrm-captioned
-                    data-instgrm-permalink="https://www.instagram.com/p/DPPMqS4CP-6/?utm_source=ig_embed&amp;utm_campaign=loading"
-                    data-instgrm-version="14"
-                    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
-                    ...
-                </blockquote>
-
-                <blockquote class="instagram-media"
-                    data-instgrm-captioned
-                    data-instgrm-permalink="https://www.instagram.com/p/DO5P0nSCnA6/?utm_source=ig_embed&amp;utm_campaign=loading"
-                    data-instgrm-version="14"
-                    style="background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin:1px; max-width:540px; min-width:326px; padding:0; width:99.375%;">
-                    ...
-                </blockquote>
+                <!-- Elfsight Instagram Feed Widget -->
+                <div class="elfsight-app-9a2c3aeb-27de-4bef-864f-5699b7026703" data-elfsight-app-lazy></div>
             </div>
         </aside>
     </main>
@@ -74,7 +53,8 @@
         <p>&copy; 2025 Atlético Trelle - Todos los derechos reservados</p>
     </footer>
 
-    <script async src="https://www.instagram.com/embed.js"></script>
+    <!-- Elfsight Instagram Feed Script -->
+    <script src="https://elfsightcdn.com/platform.js" async></script>
 
     <script>
     document.addEventListener('DOMContentLoaded', () => {

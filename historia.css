@@ -9,10 +9,10 @@ body{
 header{ background:#aa0d0d; color:#fff; padding:15px; text-align:center; }
 header h1{ font-family:'Montserrat',sans-serif; font-size:2.5em; font-weight:bold; margin:10px 0 25px; }
 
-nav{ margin:20px auto 10px; }
+nav{ margin:10px auto 5px; }
 nav ul{ list-style:none; padding:0; margin:0; display:flex; justify-content:center; gap:25px; flex-wrap:wrap; }
 nav ul li{ display:inline; }
-nav ul li a{ color:#fff; text-decoration:none; font-weight:bold; font-size:1.7em; padding:12px 20px; font-family:'Montserrat',sans-serif; }
+nav ul li a{ color:#fff; text-decoration:none; font-weight:bold; font-size:1.1em; padding:8px 14px; font-family:'Montserrat',sans-serif; }
 nav ul li a:hover{ background:rgba(255,255,255,.2); border-radius:4px; }
 
 main{ padding:20px; text-align:center; flex-grow:1; }

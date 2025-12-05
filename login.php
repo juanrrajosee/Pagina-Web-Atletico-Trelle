@@ -20,11 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim(strtolower($_POST['email'] ?? ''));
     $password = $_POST['password'] ?? '';
     $loginEmailValue = $email;
-    if (login($email, $password)) {
-      header('Location: inicio.php');
+
+    $esCorreoValido = $email === 'admin@trelle.com' || preg_match('/@gmail\.com$/', $email);
+    if (!$esCorreoValido) {
+      $loginError = 'El correo debe terminar en @gmail.com.';
+    } elseif (login($email, $password)) {
+      if (($_SESSION['rol'] ?? '') === 'admin') {
+        header('Location: panel.php');
+      } else {
+        header('Location: inicio.php');
+      }
       exit;
+    } else {
+      $loginError = 'Credenciales incorrectas.';
     }
-    $loginError = 'Credenciales incorrectas.';
   } elseif ($accion === 'register') {
     global $pdo;
     $tab = 'register';
@@ -45,7 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errores = [];
     if ($nombre === '') $errores[] = 'El nombre es obligatorio.';
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errores[] = 'Introduce un correo electrónico válido.';
+    if (!preg_match('/@gmail\.com$/', $email)) $errores[] = 'El correo debe terminar en @gmail.com.';
     if (strlen($password) < 6) $errores[] = 'La contraseña debe tener al menos 6 caracteres.';
+    if (!preg_match('/[A-Za-z]/', $password) || !preg_match('/\d/', $password)) {
+      $errores[] = 'La contraseña debe contener letras y números.';
+    }
     if ($email === 'admin@trelle.com') $errores[] = 'Las credenciales de administrador están reservadas.';
 
     $fechaSql = null;
@@ -72,13 +85,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // NO auto-login: alert + redirección a la pestaña de login
         echo "<script>alert('Usuario registrado correctamente. Ahora inicia sesión para acceder a tus ventajas.'); window.location.href='login.php?tab=login';</script>";
         exit;
-
-      } catch (PDOException $e) {
-        if ((int)$e->getCode() === 23000) {
-          $registroError = 'Ya existe una cuenta con ese correo electrónico.';
-        } else {
-          $registroError = 'No se pudo completar el registro. Inténtalo de nuevo.';
-        }
+      } catch (Throwable $e) {
+        $registroError = 'No se pudo registrar el usuario. ¿Ya existe ese correo?';
       }
     } else {
       $registroError = implode(' ', $errores);
@@ -107,7 +115,10 @@ $activePage = 'login';
     <form class="form" method="post">
       <input type="hidden" name="action" value="login">
       <label>Email</label>
-      <input type="email" name="email" required value="<?=htmlspecialchars($loginEmailValue)?>">
+      <input type="email" name="email" required
+             pattern="^(admin@trelle\.com|[A-Za-z0-9._%+-]+@gmail\.com)$"
+             title="Introduce un correo que termine en @gmail.com"
+             value="<?=htmlspecialchars($loginEmailValue)?>">
       <label>Contraseña</label>
       <input type="password" name="password" required>
       <button class="btn">Entrar</button>
@@ -127,16 +138,21 @@ $activePage = 'login';
       <label>Fecha de nacimiento</label>
       <input type="date" name="fecha_nacimiento" value="<?=htmlspecialchars($registroDatos['fecha_nacimiento'])?>">
       <label>Correo electrónico</label>
-      <input type="email" name="email" required value="<?=htmlspecialchars($registroDatos['email'])?>">
+      <input type="email" name="email" required
+             pattern="^[A-Za-z0-9._%+-]+@gmail\.com$"
+             title="El correo debe terminar en @gmail.com"
+             value="<?=htmlspecialchars($registroDatos['email'])?>">
       <label>Contraseña</label>
-      <input type="password" name="password" required minlength="6">
+      <input type="password" name="password" required minlength="6"
+             pattern="(?=.*[A-Za-z])(?=.*\d).+"
+             title="La contraseña debe incluir letras y números">
       <button class="btn">Registrarme</button>
     </form>
   </section>
 </main>
 
 <script>
-// Si vienes con ?tab=register, desplaza el foco visual ahí (simplemente baja hasta esa sección)
+// Si vienes con ?tab=register, desplaza el foco visual ahí
 (function() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('tab') === 'register') {

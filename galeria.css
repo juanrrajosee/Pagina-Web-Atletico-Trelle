@@ -21,8 +21,9 @@ header h1 {
     font-weight: bold;
 }
 
+/* 🔽 Actualizado */
 nav {
-    margin: 20px auto 10px auto;
+    margin: 10px auto 5px auto;
 }
 
 nav ul {
@@ -39,12 +40,13 @@ nav ul li {
     display: inline;
 }
 
+/* 🔽 Actualizado */
 nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.7em;
-    padding: 12px 20px;
+    font-size: 1.1em;
+    padding: 8px 14px;
     font-family: 'Montserrat', sans-serif;
 }
 
