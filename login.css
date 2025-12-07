@@ -124,3 +124,134 @@ main {
 .btn:hover {
   opacity: 0.9;
 }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1025px) {
+  header h1 {
+    font-size: 2em;
+  }
+
+  nav ul {
+    gap: 20px;
+  }
+
+  .auth-grid {
+    gap: 20px;
+    padding: 0 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 15px 10px;
+  }
+
+  header h1 {
+    font-size: 1.7em;
+  }
+
+  .auth-grid {
+    grid-template-columns: 1fr;
+    margin: 20px auto;
+    padding: 0 15px;
+  }
+
+  .seccion {
+    padding: 20px;
+  }
+
+  .seccion h2 {
+    font-size: 1.5em;
+  }
+
+  /* Hide accordion icon on tablet - forms always visible */
+  .accordion-icon {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  nav a {
+    display: block;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    font-size: 0.95em;
+  }
+
+  .auth-grid {
+    margin: 15px auto;
+    gap: 16px;
+    padding: 0 12px;
+  }
+
+  .seccion {
+    padding: 16px;
+  }
+
+  .seccion h2 {
+    font-size: 1.3em;
+  }
+
+  .form label {
+    font-size: 0.95em;
+  }
+
+  .form input {
+    padding: 8px;
+    font-size: 0.95em;
+  }
+
+  .btn {
+    padding: 10px;
+    font-size: 0.95em;
+  }
+
+  /* Accordion styles - ONLY for mobile */
+  .accordion-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    margin-bottom: 0 !important;
+    padding: 10px 0;
+  }
+
+  .accordion-icon {
+    display: inline-block;
+    transition: transform 0.3s ease;
+    font-size: 0.8em;
+  }
+
+  .accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    opacity: 0;
+  }
+
+  .accordion-section.active .accordion-content {
+    max-height: 1500px;
+    padding-top: 15px;
+    opacity: 1;
+  }
+
+  .accordion-section:not(.active) .accordion-content * {
+    visibility: hidden;
+  }
+
+  .accordion-section.active .accordion-content * {
+    visibility: visible;
+  }
+}
