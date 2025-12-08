@@ -125,133 +125,79 @@ main {
   opacity: 0.9;
 }
 
+/* Estilos base del formulario */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.form label {
+  font-weight: 700;
+  color: #333;
+}
+
+.form input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.btn {
+  background: #aa0d0d;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+  transition: background 0.3s ease;
+}
+
+.btn:hover {
+  background: #8a0a0a;
+}
+
+.alert-err {
+  background: #ffe6e6;
+  color: #d32f2f;
+  border: 1px solid #ffcccc;
+  padding: 10px;
+  border-radius: 4px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* Enlaces de registro */
+.registro-link {
+  margin-top: 20px;
+  text-align: center;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.registro-link p {
+  margin: 0;
+  color: #666;
+}
+
+.registro-link a {
+  color: #aa0d0d;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.registro-link a:hover {
+  text-decoration: underline;
+}
+
 /* --- RESPONSIVE --- */
-@media (max-width: 1025px) {
-  header h1 {
-    font-size: 2em;
-  }
-
-  nav ul {
-    gap: 20px;
-  }
-
-  .auth-grid {
-    gap: 20px;
-    padding: 0 20px;
-  }
-}
-
 @media (max-width: 768px) {
-  header {
-    padding: 15px 10px;
-  }
-
-  header h1 {
-    font-size: 1.7em;
-  }
-
-  .auth-grid {
-    grid-template-columns: 1fr;
-    margin: 20px auto;
+  .auth-container {
     padding: 0 15px;
-  }
-
-  .seccion {
-    padding: 20px;
-  }
-
-  .seccion h2 {
-    font-size: 1.5em;
-  }
-
-  /* Hide accordion icon on tablet - forms always visible */
-  .accordion-icon {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-  }
-
-  nav ul {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  nav a {
-    display: block;
-    padding: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    font-size: 0.95em;
-  }
-
-  .auth-grid {
-    margin: 15px auto;
-    gap: 16px;
-    padding: 0 12px;
-  }
-
-  .seccion {
-    padding: 16px;
-  }
-
-  .seccion h2 {
-    font-size: 1.3em;
-  }
-
-  .form label {
-    font-size: 0.95em;
-  }
-
-  .form input {
-    padding: 8px;
-    font-size: 0.95em;
-  }
-
-  .btn {
-    padding: 10px;
-    font-size: 0.95em;
-  }
-
-  /* Accordion styles - ONLY for mobile */
-  .accordion-header {
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    user-select: none;
-    margin-bottom: 0 !important;
-    padding: 10px 0;
-  }
-
-  .accordion-icon {
-    display: inline-block;
-    transition: transform 0.3s ease;
-    font-size: 0.8em;
-  }
-
-  .accordion-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease;
-    opacity: 0;
-  }
-
-  .accordion-section.active .accordion-content {
-    max-height: 1500px;
-    padding-top: 15px;
-    opacity: 1;
-  }
-
-  .accordion-section:not(.active) .accordion-content * {
-    visibility: hidden;
-  }
-
-  .accordion-section.active .accordion-content * {
-    visibility: visible;
   }
 }
