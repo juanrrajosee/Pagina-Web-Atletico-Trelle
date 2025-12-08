@@ -94,6 +94,51 @@ nav ul li a.activo {
     border-radius: 4px;
 }
 
+/* Ocultar enlace de sesión en el nav para escritorio */
+.nav-session-link {
+    display: none;
+}
+
+/* --- BOTÓN HAMBURGER --- */
+.hamburger-menu {
+    display: none;
+    /* Oculto por defecto en escritorio */
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.hamburger-menu span {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Animación del botón hamburger cuando está activo */
+.hamburger-menu.active span:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+}
+
+.hamburger-menu.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger-menu.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+
 /* --- SLIDER HERO --- */
 .hero-slider {
     position: relative;
@@ -292,24 +337,28 @@ footer {
 }
 
 @media (max-width: 768px) {
-    .session-bubble {
-        top: 12px;
-        right: 12px;
-        padding: 6px 14px;
-        font-size: 0.9rem;
+
+    /* Ocultar elementos exclusivos de escritorio */
+    .desktop-only {
+        display: none !important;
     }
+
+    .session-bubble {
+        display: none !important;
+    }
+
 
     .site-header {
         display: flex;
         flex-direction: column;
         align-items: center;
-        min-height: 160px;
+        min-height: 80px;
         padding: 15px;
     }
 
     .site-header h1 {
-        margin-left: 0;
-        margin-top: 60px;
+        margin: 10px 0;
+        font-size: 2rem;
     }
 
     .site-header .escudo {
@@ -319,14 +368,66 @@ footer {
         transform: none;
     }
 
+    /* Mostrar botón hamburger en móvil */
+    .hamburger-menu {
+        display: flex;
+    }
+
     nav {
-        margin-top: 15px;
-        margin-left: 0;
+        position: absolute;
+        top: 100%;
+        left: 0;
         width: 100%;
+        background: #aa0d0d;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 9;
+    }
+
+    nav.active {
+        max-height: 500px;
     }
 
     nav ul {
-        gap: 15px;
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 0;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 12px 20px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    nav ul li a:hover {
+        background-color: rgba(255, 255, 255, 0.15);
+        border-radius: 0;
+    }
+
+    nav ul li a.activo {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 0;
+    }
+
+    /* Mostrar enlace de sesión solo en móvil */
+    .nav-session-link {
+        display: block;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        margin-top: 8px;
+        padding-top: 8px;
+    }
+
+    .nav-session-link a {
+        font-weight: 700;
+        background-color: rgba(255, 255, 255, 0.1);
     }
 
     .inicio-layout {
@@ -359,22 +460,21 @@ footer {
     }
 
     .site-header {
-        min-height: 180px;
-        padding-bottom: 20px;
+        min-height: 70px;
+        padding-bottom: 15px;
+    }
+
+    .site-header h1 {
+        font-size: 1.5em;
     }
 
     .site-header .escudo {
         width: 80px;
     }
 
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .site-header h1 {
-        font-size: 1.5em;
-        margin-top: 50px;
+    .hamburger-menu {
+        top: 15px;
+        left: 15px;
     }
 
     .inicio-layout {
