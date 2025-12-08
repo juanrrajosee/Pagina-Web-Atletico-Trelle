@@ -15,10 +15,12 @@
   <section class="hero-slider" aria-label="Imágenes destacadas del club">
     <div class="slider-track">
       <div class="slide"><img src="ImagenesInicio/imagen_portada.JPG" alt="Plantilla del Atlético Trelle"></div>
-      <div class="slide"><img src="ImagenesInicio/foto_en_la_iglesia.jpg" alt="Presentación del club"></div>
-      <div class="slide"><img src="ImagenesInicio/trellevsbarco.jpg" alt="Cartel del próximo partido"></div>
-      <div class="slide"><img src="GaleriaImagenes/IMG3.JPG" alt="Jugadores celebrando un gol"></div>
-      <div class="slide"><img src="GaleriaImagenes/IMG7.JPG" alt="Afición animando al Atlético Trelle"></div>
+      <div class="slide"><img src="./GaleriaImagenes/reySapo.jpg" alt="Presentación del club"></div>
+      <div class="slide"><img src="./GaleriaImagenes/equipo.jpg" alt="Cartel del próximo partido"></div>
+      <div class="slide"><img src="./GaleriaImagenes/banquillo.jpg" alt="Jugadores celebrando un gol"></div>
+      <div class="slide"><img src="./GaleriaImagenes/finalTemporada.jpg" alt="Afición animando al Atlético Trelle">
+      </div>
+    </div>
     </div>
   </section>
 
